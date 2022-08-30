@@ -27,3 +27,4 @@ Route::apiResource('companies', CompanyController::class);
 Route::apiResource('employees', EmployeeController::class);
 
 Route::get('employees/filter/{id}', [EmployeeController::class, 'filter']);
+Route::get('companies/information/{id}', [CompanyController::class, 'information']);

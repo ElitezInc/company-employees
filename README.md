@@ -62,3 +62,64 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+## REST API documentation
+
+Authentication endpoints:
+* Log in as user with multipart form: POST URL/api/login
+```
+email: user email
+password: user password
+```
+* Refresh bearer token: POST URL/api/refresh
+* Logout: POST URL/api/logout
+
+CRUD endpoints for managing companies:
+* Get all companies: GET URL/api/companies
+* Show company: GET URL/api/companies/id
+* Create company with JSON: POST URL/api/companies
+```
+{
+    "name": "Company name",
+    "email": "Company mail",
+    "website": "Company website"
+}
+```
+* Update specified company details with JSON: PUT URL/api/companies/id
+```
+{
+    "name": "Company name",
+    "email": "Company mail",
+    "website": "Company website"
+}
+```
+* Delete company: DELETE URL/api/companies/id
+
+CRUD endpoints for managing employees:
+* Get all employees: GET URL/api/employees
+* Show employee: GET URL/api/employees/id
+* Create employee with JSON: POST URL/api/employees
+```
+{
+	"first_name": "Employee name",
+	"last_name": "Employee surname",
+	"company_id": Company id,
+	"age": age,
+	"salary": salary
+}
+```
+* Update employee with JSON: PUT URL/api/employees/id
+```
+{
+	"first_name": "Employee name",
+	"last_name": "Employee surname",
+	"company_id": Company id,
+	"age": age,
+	"salary": salary
+}
+```
+* Delete employee: DELETE URL/api/employees/id
+
+Other endpoints:
+* Get information about company: GET URL/api/companies/information/id
+* Filter employees by company: GET URL/api/employees/filter/company id

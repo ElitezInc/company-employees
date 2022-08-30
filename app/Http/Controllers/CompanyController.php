@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Company;
+use App\Models\Employee;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -121,6 +122,32 @@ class CompanyController extends Controller
         if (isset($found)) {
             $found->delete();
             return response()->json(['message' => 'Company deleted successfully']);
+        }
+        else {
+            return response()->json(['message' => 'Company not found'], 400);
+        }
+    }
+
+    /**
+     * Get average salary, age, min/max age, salary of employees.
+     *
+     * @param  integer $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function information($id) {
+        $found = Company::where('id', '=', $id)->first();
+
+        if (isset($found)) {
+            $employees = Employee::where('company_id', '=', $id)->get();
+
+            return response()->json([
+                'average_salary' => round($employees->avg('salary'), 2),
+                'average_age' => round($employees->avg('age'), 2),
+                'max_salary' => $employees->max('salary'),
+                'min_salary' => $employees->min('salary'),
+                'max_age' => $employees->max('age'),
+                'min_age' => $employees->min('age'),
+            ]);
         }
         else {
             return response()->json(['message' => 'Company not found'], 400);
