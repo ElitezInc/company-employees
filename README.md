@@ -63,6 +63,18 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
 
+## Setting up the project
+
+```
+1. Create database company-employees in MySQL
+2. Clone the repository and cd into it and in terminal write these commands:
+3. composer install
+4. php artisan migrate
+5. php artisan db:seed
+6. php artisan serve
+7. To run tests, execute: php artisan test
+```
+
 ## REST API documentation
 
 Authentication endpoints:
