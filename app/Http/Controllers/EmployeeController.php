@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\AppMail;
 use App\Models\Company;
 use App\Models\Employee;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 
 class EmployeeController extends Controller
@@ -56,6 +58,17 @@ class EmployeeController extends Controller
             'age' => $request->age,
             'salary' => $request->salary,
         ]);
+
+        $details = [
+            'title' => 'Mail from Company-employees',
+            'body' => 'New employee, named ' . $request->first_name . ' ' . $request->last_name . ' added to your company.',
+        ];
+
+        $company = Company::where('id', '=', $request->company_id)->first();
+
+        if (isset($company->email)) {
+            Mail::to($company->email)->send(new AppMail($details));
+        }
 
         return response()->json([
             'message' => 'Employee \'' . $request->first_name . ' ' . $request->last_name . '\' created successfully',
